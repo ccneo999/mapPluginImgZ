@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+		<meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=5, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
+		<meta name="msapplication-tap-highlight" content="no" />
+        <title>cordova-plugin-googlemaps #2379</title>
+		<script>
+			var map;
+					
+			document.addEventListener("deviceready", function() {
+				var div = document.getElementById("map_canvas");
+				
+				// Initialize the map view		
+				map = plugin.google.maps.Map.getMap(div, {
+				  camera: {
+					target: {lat: 37.422359, lng: -122.084344},	
+						zoom: 17,
+						tilt: 0,
+						bearing: 0
+					}
+				});
+			  
+				map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+
+			}, false);
+			
+			function onMapReady() {
+				var bounds = [
+				  {"lat": 37.372359, "lng": -122.134344},
+				  {"lat": 37.472359, "lng": -122.034344}
+				];
+				var bounds2 = [
+				  {"lat": 37.412359, "lng": -122.094344},
+				  {"lat": 37.432359, "lng": -122.074344}
+				];
+				// Add ground overlay
+				var groundOverlay = map.addGroundOverlay({
+				  'url': "https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg",
+				  'bounds': bounds,
+				  'opacity': 0.5
+				});
+				var groundOverlay2 = map.addGroundOverlay({
+				  'url': "https://images.pexels.com/photos/68147/waterfall-thac-dray-nur-buon-me-thuot-daklak-68147.jpeg",
+				  'bounds': bounds2,
+				  'opacity': 0.5
+				});
+			
+				map.on(plugin.google.maps.event.CAMERA_MOVE_END, function(cameraPosition) {
+					// Do nothing at the moment
+				});
+				map.on(plugin.google.maps.event.MAP_DRAG_END, function(cameraPosition) {
+					// Do nothing at the moment
+				});
+				
+				map.on(plugin.google.maps.event.MAP_CLICK, function(latLng) {
+					map.addMarker({
+						"position": latLng,
+						icon: "img/placeholder.png",
+						animation: plugin.google.maps.Animation.BOUNCE
+					}, function(marker) {
+						marker.setTitle("Map Clicked").setSnippet("Sometimes, MAP_CLICK was fired instead of the image above").showInfoWindow();
+					});
+				});
+			}
+		</script>
+		<style>
+		.subpage {
+			font-family: Helvetica, Arial, sans-serif;
+			font-size: 12px;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+			width: 100%;
+			overflow: hidden;
+			overflow-y: hidden;
+		}
+		
+		#map_canvas {
+		  position: absolute;
+		  left: 0; 
+		  top: 0; 
+		  z-index: 1;
+		  width: 100%;
+		  height: 600px;
+		  background-color: #ffffc0;
+		  left: 0px;
+		  top: -50px;
+		  right: 0px;
+		  bottom: -50px;
+		}
+		
+		@media only screen and (min-device-width : 240px) {
+			html {
+				zoom: 70%;
+			}  
+		}
+
+		@media only screen and (min-device-width : 432px) {
+			html {
+				zoom: 85%;
+			}  
+		}
+
+		@media only screen and (min-device-width : 576px) {
+			html {
+				zoom: 100%;
+			}  
+		}
+
+		@media only screen and (min-device-width : 768px) {
+			html {
+				zoom: 125%;
+			} 
+			#map_canvas {
+				width: 125%;
+				height: 125%;
+			}
+		}
+
+		@media only screen and (min-device-width : 1024px){ 
+			html {
+				zoom: 150%;
+			}
+			#map_canvas {
+				width: 150%;
+				height: 150%;
+			}
+		}
+		</style>
+    </head>
+	
+    <body>
+		<div class="subpage">
+		<div style="position: relative; left: 0; top: 0; height: 800px; z-index: 0;">
+			<div id="map_canvas"></div>
+						
+			<a onclick="alert('A');"><img id="btn_info" src="https://0.gravatar.com/avatar/c9c70d02b8f791d9cc01d6e399ff7e31?s=136&d=retro" width="12%" border="0" style="position: absolute; left: 5%; top: 20%; z-index: 100;"></a>
+			<a onclick="alert('B');"><img id="btn_bm" src="https://1.gravatar.com/avatar/17e8e4b4909b5b0b368029b208b9d8db?s=136&d=retro" width="12%" border="0" style="position: absolute; left: 5%; top: 40%; z-index: 100;"></a>	
+			<a onclick="alert('C');"><img id="btn_bm" src="https://2.gravatar.com/avatar/b5aaee03b59d582010f8bd854502f2b6?s=136&d=retro" width="12%" border="0" style="position: absolute; left: 5%; top: 60%; z-index: 100;"></a>
+						
+			<a onclick="alert('1');"><img id="btn_r1" src="https://1.gravatar.com/avatar/1bc28bf197a243400cce4a9b73092ad5?s=136&d=retro" width="12%" border="0" style="position: absolute; left: 86%; top: 20%; z-index: 100;"></a>	
+			<a onclick="alert('2');"><img id="btn_r2" src="https://2.gravatar.com/avatar/b5aaee03b59d582010f8bd854502f2b6?s=136&d=retro" width="12%" border="0" style="position: absolute; left: 86%; top: 30%; z-index: 100;"></a>	
+			<a onclick="alert('3');"><img id="btn_r3" src="https://1.gravatar.com/avatar/18e7bc46c5463a9fce14d2b8e158b692?s=136&d=retro" width="12%" border="0" style="position: absolute; left: 86%; top: 40%; z-index: 100;"></a>	
+			<a onclick="alert('4');"><img id="btn_r4" src="https://2.gravatar.com/avatar/e0a25d390f6aaa620021df2d862bc002?s=136&d=retro" width="12%" border="0" style="position: absolute; left: 86%; top: 50%; z-index: 100;"></a>	
+			<a onclick="alert('5');"><img id="btn_r5" src="https://1.gravatar.com/avatar/af9abd1a353dc8961759d508523c4ccd?s=136&d=retro" width="12%" border="0" style="position: absolute; left: 86%; top: 60%; z-index: 100;"></a>	
+			<a onclick="alert('6');"><img id="btn_r6" src="https://1.gravatar.com/avatar/df9a6e310dd631b7145dd092fc318e0c?s=136&d=retro" width="12%" border="0"  style="position: absolute; left: 86%; top: 70%; z-index: 100;"></a>	
+			<a onclick="alert('7');"><img id="btn_r7" src="https://2.gravatar.com/avatar/e64fd628960990d2c6a1827ad52ebcad?s=136&d=retro" width="12%" border="0"  style="position: absolute; left: 86%; top: 80%; z-index: 100;"></a>	
+					
+		</div>
+		</div>		
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+		
+    </body>
+</html>
